@@ -15,7 +15,20 @@ router.get('/weather', (request, response) => {
          console.error(err);
        });
 });
+
 router.get('/weather/:lat,:lon', (request, response) => {
-  response.send('Here be the weatherfor that place');
+  const lat = request.params.lat;
+  const lon = request.params.lon;
+  const url = `${baseUrl}${lat},${lon}`;
+
+
+  axios.get(url)
+       .then(weather => {
+        response.json(weather.data);
+       })
+       .catch(err => {
+         console.error(err);
+       });
+
 });
 module.exports = router;
