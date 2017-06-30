@@ -7,6 +7,7 @@ const port = process.env.PORT || 8080;
 //here middleware imports
 const logger = require('./middleware/logger');
 const notFound = require('./middleware/404');
+const errorHandler = require('./middleware/500');
 
 //routers(middleware)
 const weatherRouter = require('./routers/weather.router');
@@ -19,6 +20,7 @@ server.get('/', (request, response) => {
   response.send('It works!');
 });
 server.use(notFound);
+server.use(errorHandler);
 
 server.listen(port, () => {
   console.log('Now listening on port:', port);
