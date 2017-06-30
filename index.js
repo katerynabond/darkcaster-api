@@ -1,11 +1,18 @@
+
 const express = require('express');
 const server = express();
 const port = process.env.PORT || 8080;
 
-//routers
-const weatherRouter = require('./routers/weather.router');
-server.use(weatherRouter);
 
+//here middleware imports
+const logger = require('./middleware/logger');
+
+//routers(middleware)
+const weatherRouter = require('./routers/weather.router');
+
+//middleware use
+server.use(logger);
+server.use(weatherRouter);
 //route for testing
 server.get('/', (request, response) => {
   response.send('It works!');
